@@ -6,7 +6,7 @@ import "./Player.css"
 function Player(props) {
   return (
     <footer className="player">
-      <Row>
+      <Row className="border-top border-secondary">
         <Col xs={3}>
           <div className="track-info d-flex align-items-center p-2">
             <img src="https://via.placeholder.com/150" width="50px" alt="" />

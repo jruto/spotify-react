@@ -1,46 +1,23 @@
 import { useEffect, useState } from "react"
+import { fetchChart } from "../../../assets/fetch"
+import GenreDropdown from "../../GenreDropdown/GenreDropdown"
 import ContentGrid from "../ContentGrid/ContentGrid"
 
 import "./ContentSection.css"
 
 const ContentSection = props => {
   const [contentData, setContentData] = useState([])
+  const [genre, setGenre] = useState(0)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(props.url, {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "7d208f71b8mshfd6cd40bfde572fp107ab9jsnfda73eb5809a",
-            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-          },
-        })
-        if (response.ok) {
-          const data = await response.json()
-          console.log(data)
-          if (data.error) {
-            fetchData()
-          } else {
-            if (props.type === "artists") {
-              setContentData(data.data.map(track => track.artist))
-            } else {
-              setContentData(data.data)
-            }
-          }
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    fetchChart(props.type, genre, setContentData)
+  }, [genre, props.type])
 
   return (
     <section className="content-section">
-      <h2 className="my-4">{props.type}</h2>
-      <ContentGrid data={contentData} />
+      <h2 className="mt-4 mb-0">{`Top ${props.type}s`}</h2>
+      <GenreDropdown onGenreChange={newGenre => setGenre(newGenre)} />
+      <ContentGrid type={props.type} data={contentData} />
     </section>
   )
 }

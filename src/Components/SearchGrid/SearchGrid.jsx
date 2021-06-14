@@ -7,31 +7,33 @@ const SearchGrid = () => {
   const [query, setQuery] = useState("")
   const [data, setData] = useState([])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + query, {
-  //         method: "GET",
-  //         headers: {
-  //           "x-rapidapi-key": "7d208f71b8mshfd6cd40bfde572fp107ab9jsnfda73eb5809a",
-  //           "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-  //         },
-  //       })
-  //       if (response.ok) {
-  //         const data = await response.json()
-  //         console.log(data)
-  //         if (data.error) {
-  //           fetchData()
-  //         } else {
-  //           // setData(data.data)
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [query])
+  useEffect(() => {
+    if (query.length > 2) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + query, {
+            method: "GET",
+            headers: {
+              "x-rapidapi-key": "7d208f71b8mshfd6cd40bfde572fp107ab9jsnfda73eb5809a",
+              "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+            },
+          })
+          if (response.ok) {
+            const data = await response.json()
+            console.log(data)
+            if (data.error) {
+              fetchData()
+            } else {
+              setData(data.data)
+            }
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      fetchData()
+    }
+  }, [query])
 
   return (
     <Container className="search-grid">
