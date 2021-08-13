@@ -41,7 +41,7 @@ const SearchGrid = () => {
       <InputGroup className="mb-3 d-inline-block">
         <FormControl className="mx-auto" placeholder="Search..." value={query} onChange={e => setQuery(e.currentTarget.value)} />
       </InputGroup>
-      {data.length && <ContentGrid data={data} />}
+      {data.length && <ContentGrid data={data} type="track" />}
     </Container>
   )
 }

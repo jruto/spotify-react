@@ -22,7 +22,7 @@ const AlbumDetails = props => {
     return null
   }
   return (
-    <Container className="album-details">
+    <Container fluid className="album-details">
       <Row className="hero-section p-4">
         <img src={albumData.cover_medium} height="300px" className="img-fluid mr-3" alt="" />
         <div className="d-flex flex-column mt-auto">
